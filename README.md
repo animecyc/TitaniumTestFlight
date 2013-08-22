@@ -1,6 +1,6 @@
 # TitaniumTestFight
 
-An implementation of the TestFlight SDK for Titanium. Android support if forthcoming.
+An implementation of the TestFlight SDK for Titanium.
 
 ## Usage
 
@@ -35,6 +35,8 @@ Starts the TestFlight service
 			- sessionTimeout (Integer)
 		- environment (Object)
 
+> Android only supports the `sessionTimeout` option, everything else hasn't been implemented
+
 ### TestFlight.checkpoint(checkpointName);
 
 Sends a checkpoint
@@ -45,6 +47,8 @@ Sends a checkpoint
 ### TestFlight.feedback(feedback);
 
 Sends feeback information
+
+> Android does not support this method as of yet; It is safe to call, it just won't do anything.
 
 - feedback (String):
 	- A feedback message
