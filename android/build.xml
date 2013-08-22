@@ -1,0 +1,10 @@
+<project name="testflight" default="dist">
+	<description>
+		Ant build script for Titanium Android module testflight
+	</description>
+
+	<property name="ti.module.root" location="${basedir}"/>
+	<property file="build.properties" />
+
+	<import file="${titanium.platform}/../module/android/build.xml"/>
+</project>
