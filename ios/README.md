@@ -2,6 +2,8 @@
 
 An implementation of the TestFlight SDK for Titanium.
 
+> If you are building the Android module, make sure you update the .classpath and build.properties files to match your setup.
+
 ## Usage
 
 ```javascript
