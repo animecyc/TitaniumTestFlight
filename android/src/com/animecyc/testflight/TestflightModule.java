@@ -161,7 +161,7 @@ public class TestflightModule extends KrollModule
 	 * @param Boolean debugging
 	 * @return void
 	 */
-	@Kroll.setProperty
+	@Kroll.method @Kroll.setProperty
 	public void setDebugging(Boolean debugging)
 	{
 		this.debugging = debugging;
@@ -172,7 +172,7 @@ public class TestflightModule extends KrollModule
 	 *
 	 * @return Boolean
 	 */
-	@Kroll.getProperty
+	@Kroll.method @Kroll.getProperty
 	public Boolean getDebugging()
 	{
 		return debugging;
