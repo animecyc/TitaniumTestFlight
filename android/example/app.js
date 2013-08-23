@@ -30,18 +30,7 @@
 
     TestFlight.takeOff('XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX', {
         options : {
-            inAppUpdates : true,     // Enable OTA updates
-            flushInterval : 60,      // Time in seconds to flush, can not be set lower than 30
-            logonCheckpoint : true,  // Log checkpoints (synchronously)
-            logToStderr : true,      // Send remote logs to STDERR
-            reportCrashes : true,    // Report crashes
-            logOnlyOnCrash : false,  // Logs will only send in the event of a crash
             sessionTimeout : 30      // Time in seconds for a new session to start
-        },
-
-        environment : {
-            foo : 'bar',
-            baz : 'foo'
         }
     });
 
