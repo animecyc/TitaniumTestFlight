@@ -77,7 +77,7 @@ public class TestflightModule extends KrollModule
 	@Kroll.method
 	public void takeOff(String applicationToken, KrollDict options)
 	{
-		if (didTakeOff)
+		if (didTakeOff == false)
 		{
 			logDebug("Taking off! [" + applicationToken + "]");
 
