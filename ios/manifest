@@ -1,4 +1,4 @@
-version: 1.0
+version: 2.0.0
 apiversion: 2
 description: TitaniumTestFlight
 author: Seth Benjamin
@@ -9,4 +9,4 @@ name: testflight
 moduleid: com.animecyc.testflight
 guid: 96DF9FA3-5AE7-4873-8CAE-A1A1B63C3AED
 platform: iphone
-minsdk: 3.1.2.GA
+minsdk: 3.1.3.GA
