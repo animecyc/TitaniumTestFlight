@@ -18,9 +18,6 @@
  */
 
 #import "ComAnimecycTestflightModule.h"
-#import "TiBase.h"
-#import "TiHost.h"
-#import "TiUtils.h"
 
 @implementation ComAnimecycTestflightModule
 
@@ -51,24 +48,21 @@
  *
  * @param {NSString *} format
  * @param {...}
- * @return void
  */
 - (void)logDebug:(NSString*)format, ...
 {
-    if (debugging)
+    if (self->debugging)
     {
         va_list arguments;
         va_start(arguments, format);
 
-        NSLog(@"[INFO] TitaniumTestFlight ~> %@", [[NSString alloc] initWithFormat:format arguments:arguments]);
+        NSLog(@"[INFO] TitaniumTestFlight ~> %@", [[[NSString alloc] initWithFormat:format arguments:arguments] autorelease]);
     }
 }
 
 /**
  * Method to be called if TestFlight has
  * not flown and we try to send data
- *
- * @return void
  */
 - (void)grounded
 {
@@ -79,31 +73,27 @@
 
 /**
  * Module startup
- *
- * @return void
  */
 - (void)startup
 {
 	[super startup];
 
-    debugging = NO;
-    didTakeOff = NO;
-    optionWhitelist = [[NSDictionary alloc] initWithObjectsAndKeys:
-                         TFOptionDisableInAppUpdates, @"inAppUpdates",
-                         TFOptionFlushSecondsInterval, @"flushInterval",
-                         TFOptionLogOnCheckpoint, @"logonCheckpoint",
-                         TFOptionLogToConsole, @"logToStderr",
-                         TFOptionReportCrashes, @"reportCrashes",
-                         TFOptionSendLogOnlyOnCrash, @"logOnlyOnCrash",
-                         TFOptionSessionKeepAliveTimeout, @"sessionTimeout", nil];
+    self->debugging = NO;
+    self->didTakeOff = NO;
+    
+    [self setOptionWhitelist:@{ @"inAppUpdates" : TFOptionDisableInAppUpdates,
+                                @"flushInterval" : TFOptionFlushSecondsInterval,
+                                @"logonCheckpoint" : TFOptionLogOnCheckpoint,
+                                @"logToStderr" : TFOptionLogToConsole,
+                                @"reportCrashes" : TFOptionReportCrashes,
+                                @"logOnlyOnCrash" : TFOptionSendLogOnlyOnCrash,
+                                @"sessionTimeout" : TFOptionSessionKeepAliveTimeout }];
 }
 
 #pragma mark Cleanup
 
 /**
  * Garbage collection
- *
- * @return void
  */
 - (void)dealloc
 {
@@ -117,17 +107,16 @@
  * for [TestFlight takeOff:]
  *
  * @param {id} args
- * @return void
  */
 - (void)takeOff:(id)args
 {
-    if (! didTakeOff)
+    if (! self->didTakeOff)
     {
-        NSString *applicationToken;
-        NSDictionary *options;
+        NSString *applicationToken = nil;
+        NSDictionary *options = nil;
 
         ENSURE_ARG_AT_INDEX(applicationToken, args, 0, NSString);
-        ENSURE_ARG_AT_INDEX(options, args, 1, NSDictionary);
+        ENSURE_ARG_OR_NIL_AT_INDEX(options, args, 1, NSDictionary);
 
         if (options)
         {
@@ -137,11 +126,11 @@
             {
                 for (NSString *key in reportOptions)
                 {
-                    NSString * testflightConst= [optionWhitelist objectForKey:key];
+                    NSString * testflightConst= [self.optionWhitelist objectForKey:key];
 
                     if (testflightConst)
                     {
-                        [TestFlight setOptions:@{ [optionWhitelist objectForKey:key] :
+                        [TestFlight setOptions:@{ [self.optionWhitelist objectForKey:key] :
                                                       [TiUtils numberFromObject:[reportOptions objectForKey:key]] }];
 
                         [self logDebug:@"Setting Option: %@ => \"%@\"", key, [reportOptions objectForKey:key]];
@@ -165,7 +154,7 @@
 
         [TestFlight takeOff:applicationToken];
 
-        didTakeOff = YES;
+        self->didTakeOff = YES;
     }
     else
     {
@@ -177,13 +166,12 @@
  * Log a checkpoint
  *
  * @param {id} checkpointName
- * @return void
  */
 - (void)checkpoint:(id)checkpointName
 {
     ENSURE_SINGLE_ARG(checkpointName, NSString);
 
-    if (didTakeOff)
+    if (self->didTakeOff)
     {
         [TestFlight passCheckpoint:checkpointName];
 
@@ -199,13 +187,12 @@
  * Send feeback
  *
  * @param {id} feedback
- * @return void
  */
 - (void)feedback:(id)feedback
 {
     ENSURE_SINGLE_ARG(feedback, NSString);
 
-    if (didTakeOff)
+    if (self->didTakeOff)
     {
         [TestFlight submitFeedback:feedback];
 
@@ -221,13 +208,12 @@
  * Send a log message
  *
  * @param {id} message
- * @return void
  */
 - (void)log:(id)message
 {
     ENSURE_SINGLE_ARG(message, NSString);
 
-    if (didTakeOff)
+    if (self->didTakeOff)
     {
         TFLogPreFormatted(message);
 
@@ -243,13 +229,12 @@
  * Set debugging status
  *
  * @param {id} debug
- * @return void
  */
 - (void)setDebugging:(id)debug
 {
     ENSURE_SINGLE_ARG(debug, NSNumber);
 
-    debugging = [debug boolValue];
+    self->debugging = [debug boolValue];
 }
 
 /**
@@ -260,7 +245,7 @@
  */
 - (id)getDebugging:(id)debug
 {
-    return debugging;
+    return self->debugging;
 }
 
 @end

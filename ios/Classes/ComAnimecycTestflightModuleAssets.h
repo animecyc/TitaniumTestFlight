@@ -18,8 +18,6 @@
  */
 
 @interface ComAnimecycTestflightModuleAssets : NSObject
-{
-}
 
 - (NSData*) moduleAsset;
 - (NSData*) resolveModuleAsset:(NSString*)path;

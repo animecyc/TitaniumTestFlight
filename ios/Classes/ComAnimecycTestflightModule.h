@@ -18,14 +18,19 @@
  */
 
 #import "TiModule.h"
+#import "TiBase.h"
+#import "TiHost.h"
+#import "TiUtils.h"
 #import "TestFlight.h"
 
 @interface ComAnimecycTestflightModule : TiModule
 {
+    @protected
     BOOL debugging;
     BOOL didTakeOff;
-    NSDictionary *optionWhitelist;
 }
+
+@property (nonatomic, readwrite, assign) NSDictionary* optionWhitelist;
 
 - (void)logDebug:(NSString *)format, ...;
 - (void)grounded;
