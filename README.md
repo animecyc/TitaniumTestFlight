@@ -2,8 +2,6 @@
 
 An implementation of the TestFlight SDK for Titanium.
 
-> If you are building the Android module, make sure you update the .classpath and build.properties files to match your setup.
-
 ## Usage
 
 ```javascript
@@ -37,8 +35,6 @@ Starts the TestFlight service
 			- sessionTimeout (Integer)
 		- environment (Object)
 
-> Android only supports the `sessionTimeout` option, everything else hasn't been implemented
-
 ### TestFlight.checkpoint(checkpointName);
 
 Sends a checkpoint
@@ -49,8 +45,6 @@ Sends a checkpoint
 ### TestFlight.feedback(feedback);
 
 Sends feeback information
-
-> Android does not support this method as of yet; It is safe to call, it just won't do anything.
 
 - feedback (String):
 	- A feedback message

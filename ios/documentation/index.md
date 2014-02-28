@@ -4,7 +4,7 @@ An implementation of the TestFlight SDK for Titanium.
 
 ## Usage
 
-```javascript
+```
 var TestFlight = require('com.animecyc.testflight'),
     mainWindow = Ti.UI.createWindow({
         backgroundColor : 'white'
